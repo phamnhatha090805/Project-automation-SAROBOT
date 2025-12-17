@@ -1,0 +1,63 @@
+MODULE Module1
+    PERS tooldata Gripper_MCHB_25_Tool:=[TRUE,[[0,0,149],[1,0,0,0]],[1,[-0.039,-0.046,58.856],[1,0,0,0],0,0,0]];
+    CONST robtarget Target_10:=[[444.911695314,-10.064316264,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_20:=[[379.475561633,49.781483004,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_30:=[[327.021503597,-23.939814389,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_40:=[[405.628834406,-59.14458263,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_50:=[[423.765100934,20.602565751,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_60:=[[351.392276015,27.737710004,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_70:=[[353.176507127,-45.692250632,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_80:=[[413.348759834,-40.997478874,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_90:=[[405.157085853,23.97072667,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_100:=[[352.585241256,14.416824201,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_110:=[[365.550272081,-41.617120327,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_120:=[[410.214618065,-28.639028146,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_130:=[[394.133784143,18.225889525,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_140:=[[357.477202643,3.265533352,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_150:=[[375.023542014,-34.432656545,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_160:=[[403.776706518,-18.912377441,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_170:=[[386.377608164,9.854057809,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_180:=[[365.22430946,-4.849396134,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_190:=[[385.280225103,-24.465773135,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_200:=[[394.696025572,-8.854799642,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_210:=[[377.382909771,-2.532367222,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Target_220:=[[384.911695314,-10.064316264,52.522642559],[0,0.698047947,0.71605102,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    VAR BOOL bStop;
+    VAR robtarget stopPos;
+    VAR intnum intVarChange;
+        
+    TRAP StopRobotTrap
+       
+         StopMove;     ! Stopt de robot onmiddellijk (motion stop)
+         stopPos := CRobT(\Tool:=tool0, \WObj:=wobj0);
+        
+    ENDTRAP
+    
+    
+    
+    PROC main1()
+        
+      CONNECT intVarChange WITH StopRobotTrap;
+      ISignalDI ABB_Scalable_IO_0_DI1,1,intVarChange;
+      
+      
+      Path_10;
+
+    ENDPROC
+        
+   PROC Path_10()
+    ENDPROC PROC Path_10() MoveL Target_10,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+    MoveC Target_20,Target_30,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+    MoveC Target_40,Target_50,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+    MoveC Target_60,Target_70,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+    MoveC Target_80,Target_90,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+    MoveC Target_100,Target_110,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+    MoveC Target_120,Target_130,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+    MoveC Target_140,Target_150,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0; 
+    MoveC Target_160,Target_170,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+    MoveC Target_180,Target_190,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+    MoveC Target_200,Target_210,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+    MoveL Target_220,v50,z1,Gripper_MCHB_25_Tool\WObj:=wobj0;
+ENDPROC
+
+ENDMODULE

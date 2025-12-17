@@ -1,79 +1,75 @@
-
-
-
 {attribute :Pragma;}
 Program PLC_PRG
 VAR
-     (* Analoge ingangen van sensor *)
-    Distance : REAL;   (* 0..10V komt overeen met 0..100 mm *)
-    Color_Red      : REAL;   (* 0..10V roodintensiteit *)
-    Color_Green    : REAL;   (* 0..10V groenintensiteit *)
-    Color_Blue     : REAL;   (* 0..10V blauwintensiteit *)
+    Distance, Color_Red, Distance_mm : REAL;
+    ValueForRed : INT := 20; 
+    DetectRange : REAL := 100.0; 
+    
+    MoveX, MoveY : REAL := 0.0; 
+    Speed        : REAL := 0.5;
 
-    (* Bewerktedata *)
-    Distance_mm : REAL;
-    SumRGB      : REAL;
-    NormR, NormG, NormB : REAL;
-
-  
-	
-	(*Distance to move*)
-	MoveX : REAL := 0.0; (*20mm in the positive direction*)
-	MoveY : REAL := 0.0; (*20mm in the positive direction*)
-	MoveZ : REAL := 0.0; (*20mm in the positive direction*)
-	
-	ValueForRed : INT:= 20; (*this is going to be the value that we need*)
-	DetectRange : REAL := 100.0; (* The range that the sensor is stil valid*)
-	
-	(* Statemachine*) 
-	Step_nr : INT := 0;
+    
+    Max_Radius     : REAL := 50.0;    
+    Increment      : REAL := 16.666;  
+    Current_Radius : REAL := 16.666;  
+    Loop_Counter   : INT := 1;        
+    
+    Step_nr      : INT := 0;
+    Object_Found : BOOL := FALSE; 
+    Finished     : BOOL := FALSE; 
 END_VAR
 
+Distance_mm := (Distance / 10.0) * 100.0; 
 
-
-(* Bereken de afstand *)
-Distance_mm := (Distance / 10.0) * 100.0; (* 0-10V, 0-100 mm *)
-
-(* Controleer of de grijper al op de juiste plaats is *)
 IF (Distance_mm > DetectRange AND Color_Red > ValueForRed) THEN
-    (* Als het goed is, reset de stappen en doe niets anders in deze logica *)
-    step_nr := 0;
-ELSE
-    (* Als de grijper niet op de juiste plek is, start of vervolg de zoektocht *)
-    CASE step_nr OF
-        0: (* Begin: Probeer de eerste beweging *)
-		IF (Distance_mm > DetectRange AND Color_Red > ValueForRed) THEN
-			step_nr := 0;
-		ELSE
-            MoveX := MoveX + 20.0;
-            step_nr := 1; (* Ga naar de volgende stap voor de volgende cyclus *)
-        END_IF    
-        1: (* Tweede poging *)
-		IF (Distance_mm > DetectRange AND Color_Red > ValueForRed) THEN
-			step_nr := 0;
-		ELSE
-            MoveX := MoveX - 20.0;
-            MoveY := MoveY + 20.0;
-            step_nr := 2;
-        END_IF    
-        2: (* Derde poging *)
-		IF (Distance_mm > DetectRange AND Color_Red > ValueForRed) THEN
-			step_nr :=0;
-		ELSE
-            MoveY := MoveY - 40.0;
-            step_nr := 3;
-        END_IF    
-        3: (* Vierde poging *)
-		IF (Distance_mm > DetectRange AND Color_Red > ValueForRed) THEN
-			step_nr :=0;
-		ELSE
-            MoveY := MoveY + 20.0;
-            MoveX := MoveX - 20.0;
-            step_nr := 4; (* Optioneel: stop hier of ga terug naar 0 om te herhalen *)
-        END_IF
-        4: (* Klaar met pogingen of wacht op de volgende cyclus *)
-            ;
+    Object_Found := TRUE; 
+END_IF
+
+IF NOT Object_Found AND NOT Finished THEN
+    CASE Step_nr OF
+        0: 
+           IF MoveX < Current_Radius THEN 
+               MoveX := MoveX + Speed;
+           ELSE 
+               Step_nr := 1; 
+           END_IF
+
+        1: 
+           IF MoveY < Current_Radius THEN 
+               MoveY := MoveY + Speed;
+           ELSE 
+               Step_nr := 2; 
+           END_IF
+
+        2: 
+           IF MoveX > (Current_Radius * -1.0) THEN 
+               MoveX := MoveX - Speed;
+           ELSE 
+               Step_nr := 3; 
+           END_IF
+
+        3: 
+           IF MoveY > (Current_Radius * -1.0) THEN 
+               MoveY := MoveY - Speed;
+           ELSE 
+               Step_nr := 4; 
+           END_IF
+
+        4: 
+           IF Loop_Counter < 3 THEN
+               Loop_Counter := Loop_Counter + 1;
+               Current_Radius := Current_Radius + Increment; 
+               
+               IF Current_Radius > Max_Radius THEN 
+                   Current_Radius := Max_Radius; 
+               END_IF;
+               
+               Step_nr := 0; 
+           ELSE
+               Finished := TRUE; 
+               Step_nr := 99;
+           END_IF
+
+        99: ; 
     END_CASE
-
-
 END_IF
